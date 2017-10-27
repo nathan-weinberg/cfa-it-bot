@@ -8,7 +8,7 @@ CFA IT Bot uses Selenium and chromedriver to open and login to web pages used at
 ## Usage
 This file should be run from the command line. All existing Chrome instances must be closed before running.
 
-Paths for the Chromedriver executable and User's Chrome options as well as login usernames and passwords must be written in a JSON file, which should be located in the same directory as the Python file unless otherwise specified.
+Paths for the Chromedriver executable and User's Chrome options as well as login usernames and passwords must be written in a JSON file, which should be located in the same directory as the Python file unless otherwise specified. Chromedriver can be found here: https://sites.google.com/a/chromium.org/chromedriver/
 
 The program will search for a file named "auth.json" by default. A custom JSON file can be used by specifying the filename as a command line argument.
 
