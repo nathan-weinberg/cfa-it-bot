@@ -1,0 +1,16 @@
+{
+	"paths": {
+		"chromedriver": "<path goes here>",
+		"chromeoptions": "<path goes here>"
+	},
+	"credentials": {
+		"bu_email": {
+			"username": "<username goes here>",
+			"password": "<password goes here>"
+		},
+		"bu_login": {
+			"username": "<username goes here>",
+			"password": "<password goes here>"
+		}
+	}
+}

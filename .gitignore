@@ -1,0 +1,5 @@
+# prevents user's default auth file from syncing to GitHub
+auth.json
+
+# misc
+debug.log
