@@ -1,3 +1,7 @@
+# CFA_IT_Bot
+# Nathan Weinberg
+# Coded in Python 3.6
+
 import sys
 import json
 from selenium import webdriver
