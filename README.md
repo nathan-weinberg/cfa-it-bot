@@ -18,11 +18,13 @@ Off-campus users wishing to connect to certain BU resources will need to be conn
 You must install the Selenium package and the jsonschema package. This can be done with
 
 `pip install selenium`
+
 `pip install jsonschema`
 
 or they can be found here:
 
 http://www.seleniumhq.org/
+
 https://pypi.python.org/pypi/jsonschema
 
 ## Notes
