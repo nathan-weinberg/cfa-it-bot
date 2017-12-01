@@ -4,32 +4,64 @@
 
 import sys
 import json
+from jsonschema import validate, ValidationError
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException 
 
 def open_new_tab(br):
-    br.execute_script('''window.open("about:blank", "_blank");''')
-    windows = br.window_handles
-    br.switch_to_window(windows[-1])
+	''' opens and switches to new tab
+	'''
+	br.execute_script('''window.open("about:blank", "_blank");''')
+	windows = br.window_handles
+	br.switch_to_window(windows[-1])
 
-def main(auth):
+def loadJSON(auth):
+	''' loads JSON schema file as well as JSON userdata file
+		returns only if userdata is in valid format according to schema
+	'''
+
+	# load JSON schema file
+	with open('schema.json') as schema:
+		schema = json.load(schema)
 
 	# load JSON file with userdata
+	# continues only if userdata is in valid format
 	try:
 		with open(auth) as auth:
-			user_data = json.load(auth)
+			userdata = json.load(auth)
+			validate(userdata, schema)
+			return userdata
 	except FileNotFoundError:
 		print("No JSON file found.")
 		sys.exit()
+	except ValidationError:
+		print("JSON file is incorrectly formatted.")
+		sys.exit()
 
-	# initialize Chrome webdriver
-	executable_path = user_data["paths"]["chromedriver"]
-	chrome_options = webdriver.ChromeOptions()
-	chrome_options.add_argument('user-data-dir=' + user_data["paths"]["chromeoptions"])
-	br = webdriver.Chrome(executable_path=executable_path, chrome_options=chrome_options)
+def initializeWebDriver(userdata):
+	'''	initializes Chrome webdriver with paths from userdata
+		returns only if paths in JSON file for Chrome are correct
+	'''
+
+	try:
+		executable_path = userdata["paths"]["chromedriver"]
+		chrome_options = webdriver.ChromeOptions()
+		chrome_options.add_argument('user-data-dir=' + userdata["paths"]["chromeoptions"])
+		br = webdriver.Chrome(executable_path=executable_path, chrome_options=chrome_options)
+		return br
+	except WebDriverException:
+		print("Invalid JSON data.")
+		sys.exit()
+
+def main(auth):
+
+	userdata = loadJSON(auth)
+	br = initializeWebDriver(userdata)
 
 	## BU Mail Login
 
@@ -41,15 +73,15 @@ def main(auth):
 	except:
 	    pass        
 	username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
-	username.send_keys(user_data['credentials']['bu_email']['username'])
+	username.send_keys(userdata['credentials']['bu_email']['username'])
 	button = br.find_element_by_id("identifierNext")
 	button.click()
 
 	# BU Login
 	username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "j_username")))
-	username.send_keys(user_data['credentials']['bu_login']['username'])
+	username.send_keys(userdata['credentials']['bu_login']['username'])
 	password = br.find_element_by_id("j_password")
-	password.send_keys(user_data['credentials']['bu_login']['password'])
+	password.send_keys(userdata['credentials']['bu_login']['password'])
 	button = br.find_element_by_name("_eventId_proceed")
 	button.click()
 
@@ -59,9 +91,9 @@ def main(auth):
 	## Papercut Login
 	br.get("https://cfa-print.bu.edu/app")
 	username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "inputUsername")))
-	username.send_keys(user_data['credentials']['bu_login']['username'])
+	username.send_keys(userdata['credentials']['bu_login']['username'])
 	password = br.find_element_by_id("inputPassword")
-	password.send_keys(user_data['credentials']['bu_login']['password'])
+	password.send_keys(userdata['credentials']['bu_login']['password'])
 	button = br.find_element_by_name("$Submit$0")
 	button.click()
 
@@ -76,9 +108,9 @@ def main(auth):
 	    event this is no longer the case uncommnet the code below.
 	'''
 	# username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "j_username")))
-	# username.send_keys(user_data['credentials']['bu_login']['username'])
+	# username.send_keys(userdata['credentials']['bu_login']['username'])
 	# password = br.find_element_by_id("j_password")
-	# password.send_keys(user_data['credentials']['bu_login']['password'])
+	# password.send_keys(userdata['credentials']['bu_login']['password'])
 	# button = br.find_element_by_name("_eventId_proceed")
 	# button.click()
 

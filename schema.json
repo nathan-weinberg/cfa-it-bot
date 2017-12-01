@@ -1,0 +1,31 @@
+{
+	"type":"object",
+	"properties": {
+		"paths": {
+			"type":"object",
+			"properties": {
+				"chromedriver": {"type":"string"},
+				"chromeoptions": {"type":"string"}
+			}
+		},
+		"credentials": {
+			"type":"object",
+			"properties": {
+				"bu_email": {
+					"type":"object",
+					"properties": {
+						"username": {"type":"string"},
+						"password": {"type":"string"}
+					}
+				},
+				"bu_login": {
+					"type":"object",
+					"properties":{
+						"username": {"type":"string"},
+						"password": {"type":"string"}
+					}
+				}
+			}
+		}
+	}
+}

@@ -15,11 +15,15 @@ The program will search for a file named "auth.json" by default. A custom JSON f
 Off-campus users wishing to connect to certain BU resources will need to be connected to the Boston Univeristy VPN. Information on how to do so can be found here: https://www.bu.edu/tech/services/cccs/remote/vpn/
 
 ### Packages
-You must install the Selenium package. This can be done with
+You must install the Selenium package and the jsonschema package. This can be done with
 
 `pip install selenium`
+`pip install jsonschema`
 
-or can be found here: http://www.seleniumhq.org/
+or they can be found here:
+
+http://www.seleniumhq.org/
+https://pypi.python.org/pypi/jsonschema
 
 ## Notes
 This project is not officially supported by or associated with Boston University Information Services and Technology or any of its affiliates. Just something some DS student whipped up.
