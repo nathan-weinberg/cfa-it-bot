@@ -28,4 +28,6 @@ http://www.seleniumhq.org/
 https://pypi.python.org/pypi/jsonschema
 
 ## Notes
+Ensure you are using the latest version of chromedriver avaliable; issues have been found running this program with older versions.
+
 This project is not officially supported by or associated with Boston University Information Services and Technology or any of its affiliates. Just something some DS student whipped up.
