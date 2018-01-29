@@ -1,6 +1,9 @@
 # prevents user's default auth file from syncing to GitHub
 auth.json
 
+# prevents individual Chromedriver files from syncing to GitHub
+chromedriver
+
 # misc
 debug.log
 TODO.txt
