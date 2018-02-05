@@ -67,11 +67,20 @@ def main(auth):
 
 	# Google Login
 	br.get("https://mail.google.com/mail/u/0/#inbox")
+
+	# Often Goggle redirects to a different page; the following handles those cases
 	try:
 	    button = br.find_element_by_class_name("gmail-nav__nav-link__sign-in")
 	    button.click()
 	except:
-	    pass        
+	    pass
+
+	try:
+	    button = br.find_element_by_id("identifierLink")
+	    button.click()
+	except:
+	    pass
+
 	username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "identifierId")))
 	username.send_keys(userdata['credentials']['bu_email']['username'])
 	button = br.find_element_by_id("identifierNext")
