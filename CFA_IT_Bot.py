@@ -92,7 +92,7 @@ def main(auth):
 	password = br.find_element_by_id("j_password")
 	password.send_keys(userdata['credentials']['bu_login']['password'])
 	button = br.find_element_by_name("_eventId_proceed")
-	button.click()
+	button.click()	
 
 	# Open New Tab and Switch
 	open_new_tab(br)
@@ -114,7 +114,7 @@ def main(auth):
 
 	''' Note: Login should be unnessessary as upon testing previous BU
 	    logins seems to automatically authenticate ServiceNow. In the
-	    event this is no longer the case uncommnet the code below.
+	    event this is no longer the case uncomment the code below.
 	'''
 	# username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "j_username")))
 	# username.send_keys(userdata['credentials']['bu_login']['username'])
@@ -136,6 +136,13 @@ def main(auth):
 	
 	# TechInternal
 	br.get("http://www.bu.edu/techinternal/")
+	
+	username = WebDriverWait(br, 10).until(EC.presence_of_element_located((By.ID, "username")))
+	username.send_keys(userdata['credentials']['bu_login']['username'])
+	password = br.find_element_by_id("password")
+	password.send_keys(userdata['credentials']['bu_login']['password'])
+	button = br.find_element_by_class_name("input-submit")
+	button.click()	
 
 if __name__ == "__main__":
 	if len(sys.argv) > 2:
